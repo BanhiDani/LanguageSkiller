@@ -1,0 +1,135 @@
+/* Globális alapok a teszteléshez (opcionális, de középre rendezi a chatet) */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* A chatalkalmazás fő konténere */
+.chat-container {
+    width: 100%;
+    max-width: 450px;
+    height: 600px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Az üzenetek ablaka */
+.chat-window {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #f9f9fb;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Gördítősáv (Scrollbar) testreszabása modern böngészőkben */
+.chat-window::-webkit-scrollbar {
+    width: 6px;
+}
+.chat-window::-webkit-scrollbar-track {
+    background: transparent;
+}
+.chat-window::-webkit-scrollbar-thumb {
+    background-color: #e4e4e7;
+    border-radius: 10px;
+}
+
+/* Általános üzenet buborék stílus (ezeket a JS-ből adod majd hozzá) */
+.chat-message {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Felhasználó üzenete (Jobb oldalon, kékes-lila) */
+.chat-message.user {
+    background-color: #667eea;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+}
+
+/* Gemini/Bot válasza (Bal oldalon, világosszürke) */
+.chat-message.bot {
+    background-color: #f1f3f5;
+    color: #333333;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+}
+
+/* Rendszerüzenet / Töltődés jelző (Középen, dőlt) */
+.chat-message.system {
+    background-color: transparent;
+    color: #8e8e93;
+    align-self: center;
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
+/* Alsó beviteli sáv konténere */
+.chat-input-area {
+    display: flex;
+    padding: 15px;
+    background-color: #ffffff;
+    border-top: 1px solid #eaeaea;
+    gap: 10px;
+}
+
+/* Szöveges beviteli mező (osztálynév nélkül, típus alapján célozva) */
+.chat-input-area input[type="text"] {
+    flex-grow: 1;
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
+    padding: 12px 18px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chat-input-area input[type="text"]:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+/* Küldés gomb */
+.send-btn {
+    background-color: #667eea;
+    color: white;
+    border: none;
+    border-radius: 24px;
+    padding: 0 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.send-btn:hover {
+    background-color: #5a6fd6;
+}
+
+.send-btn:active {
+    transform: scale(0.97);
+}
+
+/* Finom animáció az új üzenetek megjelenéséhez */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}

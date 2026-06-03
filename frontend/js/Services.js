@@ -1,30 +1,31 @@
-
-export default class Services {
-    constructor(baseUrl) {
+// Services.js
+export class Services {
+    constructor(baseUrl = 'http://localhost:3000/api') {
         this.baseUrl = baseUrl;
     }
 
+    /**
+     * Üzenet küldése a backend API-nak
+     * @param {string} message - A felhasználó üzenete
+     * @returns {Promise<Object>} - A backend (és a Gemini) válasza
+     */
     async sendMessage(message) {
         try {
-            const response = await fetch(`${this.baseUrl}/api/chat`, {
+            const response = await fetch(`${this.baseUrl}/chat`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ message })
+                body: JSON.stringify({ message: message })
             });
 
-            const data = await response.json();
-
             if (!response.ok) {
-                console.error("❌ Backend error:", data);
-                throw new Error(data.error || 'Backend hiba');
+                throw new Error('Hálózati hiba történt a kommunikáció során.');
             }
 
-            return data.reply;
-
+            return await response.json();
         } catch (error) {
-            console.error('🔥 Service error:', error);
+            console.error('Hiba a Services.sendMessage-ben:', error);
             throw error;
         }
     }

@@ -1,6 +1,4 @@
 
-// Egyetlen felelősség: API hívások
-
 export default class Services {
     constructor(baseUrl) {
         this.baseUrl = baseUrl;
@@ -16,17 +14,18 @@ export default class Services {
                 body: JSON.stringify({ message })
             });
 
+            const data = await response.json();
+
             if (!response.ok) {
-                throw new Error('Hálózati hiba');
+                console.error("❌ Backend error:", data);
+                throw new Error(data.error || 'Backend hiba');
             }
 
-            const data = await response.json();
             return data.reply;
 
         } catch (error) {
-            console.error('Service hiba:', error);
+            console.error('🔥 Service error:', error);
             throw error;
         }
     }
 }
-

@@ -1,16 +1,16 @@
 
 export default class ChatView {
+
     constructor(container) {
         this.container = container;
-
         this.render();
         this.bindEvents();
     }
 
     render() {
         this.container.innerHTML = `
-            <div class="chat-window" id="chatWindow"></div>
-            <input type="text" id="chatInput" placeholder="Írj üzenetet..." />
+            <div id="chatWindow"></div>
+            <input id="chatInput" />
             <button id="sendBtn">Küldés</button>
         `;
     }
@@ -23,7 +23,6 @@ export default class ChatView {
             const message = input.value.trim();
             if (!message) return;
 
-            // CustomEvent 🔥
             this.container.dispatchEvent(new CustomEvent('sendMessage', {
                 detail: { message }
             }));
@@ -41,13 +40,10 @@ export default class ChatView {
     appendMessage(type, text) {
         const chatWindow = this.container.querySelector('#chatWindow');
 
-        const msg = document.createElement('div');
-        msg.classList.add('message', type);
-        msg.innerText = text;
+        const div = document.createElement('div');
+        div.classList.add(type);
+        div.innerText = text;
 
-        chatWindow.appendChild(msg);
-
-        // auto-scroll (UX small win)
-        chatWindow.scrollTop = chatWindow.scrollHeight;
+        chatWindow.appendChild(div);
     }
 }

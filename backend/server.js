@@ -1,27 +1,20 @@
-
-// CommonJS... mert azt mondtad. És mi fegyelmezettek vagyunk.
-
+// server.js
+require('dotenv').config(); // .env fájl betöltése
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
-
-const chatRoutes = require('./routes/chat.routes');
+const chatRoutes = require('./routes/chatRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware-ek
-app.use(cors());
-app.use(express.json());
+app.use(cors());          // Engedélyezi a frontend felől érkező kéréseket
+app.use(express.json());  // Engedélyezi a beérkező JSON adatok feldolgozását (req.body)
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-    res.json({ status: 'OK', timestamp: new Date() });
-});
+// Route-ok bekötése a globális /api prefix alá
+app.use('/api', chatRoutes);
 
-// Routes
-app.use('/api/chat', chatRoutes);
-
+// Szerver indítása
 app.listen(PORT, () => {
-    console.log(`🚀 Server fut a ${PORT}-as porton`);
+    console.log(`Szerver fut a következő címen: http://localhost:${PORT}`);
 });

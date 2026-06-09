@@ -3,7 +3,7 @@ const geminiModel = require('../models/GeminiModel');
 
 class ChatController {
     async handleChatMessage(req, res) {
-        const { message } = req.body;
+        const { message, language, level } = req.body;
 
         // Egyszerű validálás: küldött-e a felhasználó szöveget?
         if (!message || message.trim() === '') {
@@ -12,7 +12,7 @@ class ChatController {
 
         try {
             // Meghívjuk a modellt az üzleti logikáért
-            const reply = await geminiModel.generateResponse(message);
+            const reply = await geminiModel.generateResponse({ message, language, level });
             
             // HTTP 200 OK és a válasz JSON formátumban
             return res.status(200).json({ reply: reply });

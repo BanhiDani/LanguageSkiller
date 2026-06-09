@@ -16,7 +16,7 @@ export class Services {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ message: message })
+                body: JSON.stringify({ message: message, language: "Spanish", level: "B2" })
             });
 
             if (!response.ok) {
